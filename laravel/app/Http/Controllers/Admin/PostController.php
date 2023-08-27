@@ -45,7 +45,7 @@ class PostController extends Controller
         ]);
         $data =['slug'] = Str::of($data['title'])->slug('-');
 
-        $newPost = Post::create($data);
+        $newPost = Post::create($data); 
         return redirect()->route('admin.posts.index');
 
     }
