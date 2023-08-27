@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\HomeController as GuestHomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\DashboardController as AdminHomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -34,4 +32,14 @@ require __DIR__.'/auth.php';
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::prefix('admin')->name('admin.')->middleware(['first', 'second'])->group(function(){
+    Route::get('/',[AdminDashboardController::class,'home'])->name('home');
+    Route::resource('/posts', PostController::class);
+
+});
+
+Route::name('guest.')->group(function(){
+    Route::get('/',[GuestHomeController::class,'home'])->name('home');
+
+});
