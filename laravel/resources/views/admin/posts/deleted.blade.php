@@ -26,11 +26,18 @@
                     <td>
                         <form classs="d-inline-block" action="{{route('admin.posts.restore', $post)}}" method="POST">
                             @csfr
-                            @method('DELETE')
+                            @method('POST')
                             <button type="submit" class="btn btn-sm btn-warning">
                                 Restore
                             </button>
-                        </form>    
+                        </form>  
+                        <form classs="d-inline-block" action="{{route('admin.posts.obliterate', $post)}}" method="POST">
+                            @csfr
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-danger">
+                                Delete permanently
+                            </button>
+                        </form>     
                     </td>
                 </tr>
                 @endforeach

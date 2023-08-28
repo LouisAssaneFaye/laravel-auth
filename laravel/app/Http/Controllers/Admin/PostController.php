@@ -117,4 +117,11 @@ class PostController extends Controller
         return redirect()->route('admin.posts.show', $post);
         
     }
+
+    public function obliterate(){
+        $posts= Post::onlyTrashed()->findOrFail($id);
+        $post->forceDelete();
+        return redirect()->route('admin.posts.index');
+
+    }
 }
