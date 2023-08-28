@@ -22,9 +22,13 @@
                         <a href="" class="btn btn-sm btn-success">
                             Edit
                         </a>
-                        <a href="" class="btn btn-sm btn-warning">
-                            Delete
-                        </a>
+                        <form classs="d-inline-block" action="{{route('admin.posts.destroy', $post)}}" method="POST">
+                            @csfr
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-sm btn-warning">
+                                Delete
+                            </button>
+                        </form>    
                     </li>
                 </ul>
     </div>
