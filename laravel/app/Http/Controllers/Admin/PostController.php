@@ -89,8 +89,9 @@ class PostController extends Controller
             'content'=>['required', 'min:10'],
         ]);
 
-        $post->update($data);
-        return redirect()->route('admin.posts.show', compact('post'));
+       $data['slug'] = Str::of(" $post->id " . $data['title'])->slug('-');
+       $post->update($data);
+       return redirect()->route('admin.posts.show', compact('post'));
     }
 
     /**

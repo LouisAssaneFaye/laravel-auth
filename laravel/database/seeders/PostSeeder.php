@@ -1,9 +1,10 @@
 <?php
 
 namespace Database\Seeders;
-
+use App\Models\Post;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 use Faker\Generator as Faker;
 
 class PostSeeder extends Seeder
@@ -22,6 +23,8 @@ class PostSeeder extends Seeder
             $newpost->content=$faker->paragraph(10, true);
             $newpost->slug= $faker->slug();
             $newpost->image=$faker->imageUrl(480, 360, 'post', true, 'posts', true, 'png');
+            $newpost->save();
+            $newPost->slug = Str::of("$newPost->id" . $newPost->title)->slug('-');
             $newpost->save();
         }
     }
