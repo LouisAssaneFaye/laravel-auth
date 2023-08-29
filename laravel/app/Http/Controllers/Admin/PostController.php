@@ -93,7 +93,7 @@ class PostController extends Controller
        $post->update($data);
        return redirect()->route('admin.posts.show', compact('post'));
     }
-
+ 
     /**
      * Remove the specified resource from storage.
      *
