@@ -7,6 +7,7 @@ use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -39,11 +40,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $img_path = Storage::put('uploads/posts', $request['image']);
         $data = $request->validate([
             'title'=>['required', 'unique:posts', 'min:3','max:255'],
-            'image'=>['url:https'],
+            'image'=>['file'],
             'content'=>['required', 'min:10'],
         ]);
+        $data['image']= $img_path;
         $data['slug'] = Str::of($data['title'])->slug('-');
 
         $newPost = Post::create($data); 
@@ -112,15 +115,16 @@ class PostController extends Controller
 
     }
 
-    public function restore($id){
-        $post->Post::onlyTrashed()->findOrFail($id);
+    public function restore($slug){
+        $post->Post::onlyTrashed()->findOrFail($slug);
         $post->restore();
         return redirect()->route('admin.posts.show', $post);
         
     }
 
-    public function obliterate(){
-        $posts= Post::onlyTrashed()->findOrFail($id);
+    public function obliterate($slug){
+        $posts= Post::onlyTrashed()->findOrFail($slug);
+        Storage::delete($post->image);
         $post->forceDelete();
         return redirect()->route('admin.posts.index');
 

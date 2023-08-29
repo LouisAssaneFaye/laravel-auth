@@ -3,7 +3,7 @@
 <div class="container" id="posts-container">
     <div class="row justify-content-center">
     <div class="col-12">
-       <form action="{{route('admin.posts.update', $post->id)}}" method="POST">
+       <form action="{{route('admin.posts.update', $post->id)}}" method="POST" enctype="multipart/form-data">
         @csfr
         @method('PUT')
         @error('title')
@@ -18,7 +18,7 @@
         @enderror
 <div class="mb-3">
   <label for="image" class="form-label">Image</label>
-  <input type="text" class="form-control" id="image" placeholder="" name="image" value="{{old('image', $posts->image)}}">
+  <input type="text" class="form-control" id="image" placeholder="uload your image" name="image" value="{{old('image', '')}}">
 </div>
 @error('content')
         <div class="alert alert-danger">{{$message}}</div>
