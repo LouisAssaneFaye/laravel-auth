@@ -45,5 +45,9 @@ class User extends Authenticatable
 
     public function userDetail(){
         return $this->hasOne (UserDetail::class);
+    };
+
+    public function posts(){
+        
     }
 }

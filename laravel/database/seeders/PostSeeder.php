@@ -16,9 +16,13 @@ class PostSeeder extends Seeder
      */
     public function run(Faker $faker):void
     {
+        $categoryIds= Category::all()->pluck('id');
+        $usersIds = User::all()->pluck('id');
+
         for ($i=0; $i<100; $i++){
             $newPost = new Post();
-            $newPost->category_id=($faker->randomElement($categories))->id;
+            $newPost->category_id=$faker->randomElement($categories);
+            $newPost->user_id=($faker->randomElement($userIds));
             $newpost->title=ucfirst($faker->unique()->words(4,true));
             $newpost->content=$faker->paragraph(10, true);
             $newpost->slug= $faker->slug();
