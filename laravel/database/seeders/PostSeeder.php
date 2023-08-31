@@ -18,8 +18,8 @@ class PostSeeder extends Seeder
     {
         for ($i=0; $i<100; $i++){
             $newPost = new Post();
-            $newpost->title=ucfirst($faker->unique()->words(4,
-        true));
+            $newPost->category_id=($faker->randomElement($categories))->id;
+            $newpost->title=ucfirst($faker->unique()->words(4,true));
             $newpost->content=$faker->paragraph(10, true);
             $newpost->slug= $faker->slug();
             $newpost->image=$faker->imageUrl(480, 360, 'post', true, 'posts', true, 'png');
